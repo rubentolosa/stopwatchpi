@@ -4,5 +4,5 @@ xset -dpms         # disable DPMS (Energy Star) features.
 xset s noblank     # don't blank the video device
 while true
 do
-    /usr/local/bin/chrono.py
+    /usr/local/stopwatchpi/chrono.py
 done
