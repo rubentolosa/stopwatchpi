@@ -58,45 +58,36 @@ Press ESC key to exit
 import sys
 import pyglet
 import time
-import Adafruit_CharLCD as LCD
+try:
+  import Adafruit_CharLCD as LCD
 
 
-# Raspberry Pi pin configuration:
-lcd_rs        = 5  # Note this might need to be changed to 21 for older revision Pi's.
-lcd_en        = 23
-lcd_d4        = 6
-lcd_d5        = 13
-lcd_d6        = 19
-lcd_d7        = 26
-lcd_backlight = 24
+  # Raspberry Pi pin configuration:
+  lcd_rs        = 5  # Note this might need to be changed to 21 for older revision Pi's.
+  lcd_en        = 23
+  lcd_d4        = 6
+  lcd_d5        = 13
+  lcd_d6        = 19
+  lcd_d7        = 26
+  lcd_backlight = 24
 
 
-# Define LCD column and row size for 16x2 LCD.
-lcd_columns = 16
-lcd_rows    = 2
+  # Define LCD column and row size for 16x2 LCD.
+  lcd_columns = 16
+  lcd_rows    = 2
 
 
-# Initialize the LCD using the pins above.
-lcd = LCD.Adafruit_CharLCD(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7,
-                           lcd_columns, lcd_rows, lcd_backlight)
+  # Initialize the LCD using the pins above.
+  lcd = LCD.Adafruit_CharLCD(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7,
+                             lcd_columns, lcd_rows, lcd_backlight)
+except:
+  pass
 
+from local_settings import *
 
-fullscreen = True
-#font_size = 200 #for 32 inch
-font_size = 270 #for 17 inch
 minute = 60
-start_running = False
 running_out_minutes = 1
-timeout_text = ''
 time_step = 1.0
-colors = {
-  'default_text' :      (255, 255, 255, 255),
-  'default_clock' :     (200, 200, 200, 255),
-  'timeout_text' :      (0,   0,   0,   255),
-  'default_bg' :        (0,   0,   0,   255),
-  'timeout_bg' :        (255, 0,   0,   255),
-  'running_out_color' : (180, 0,   0,   255)
-  }
 key_stop_reset = pyglet.window.key.RETURN
 gpio_stop_reset = 14
 key_timeout = pyglet.window.key.SPACE
@@ -125,8 +116,6 @@ window = pyglet.window.Window(fullscreen=fullscreen)
 
 class Timer(object):
     def __init__(self):
-        #dash_size = 20 # for 32 inch
-        dash_size = 15 # for 17 inch
         self.start = '%02d:00' % COUNTDOWN
         self.label = pyglet.text.Label(self.start, font_size=font_size,
                                        x=window.width//2, y=window.height*3//4,
@@ -197,8 +186,11 @@ def on_draw():
     timer.bg_color.draw()
     timer.label.draw()
     timer.curtime.draw()
-    lcd.clear()
-    lcd.message(red + "   " + timer.label.text + "  " + red + "\n" + red + " " + timer.curtime.text + " " + red)
+    try:
+      lcd.clear()
+      lcd.message(red + "   " + timer.label.text + "  " + red + "\n" + red + " " + timer.curtime.text + " " + red)
+    except:
+      pass
 
 
 def on_button(channel):
