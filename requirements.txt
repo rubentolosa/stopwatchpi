@@ -1,0 +1,10 @@
+Adafruit-CharLCD==1.1.1
+Adafruit-GPIO==1.0.3
+Adafruit-PureIO==0.2.1
+appdirs==1.4.3
+packaging==16.8
+pkg-resources==0.0.0
+pyglet==1.2.4
+pyparsing==2.2.0
+six==1.10.0
+spidev==3.2
