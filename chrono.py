@@ -82,7 +82,8 @@ lcd = LCD.Adafruit_CharLCD(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7,
 
 
 fullscreen = True
-font_size = 200
+#font_size = 200 #for 32 inch
+font_size = 270 #for 17 inch
 minute = 60
 start_running = False
 running_out_minutes = 1
@@ -124,6 +125,8 @@ window = pyglet.window.Window(fullscreen=fullscreen)
 
 class Timer(object):
     def __init__(self):
+        #dash_size = 20 # for 32 inch
+        dash_size = 15 # for 17 inch
         self.start = '%02d:00' % COUNTDOWN
         self.label = pyglet.text.Label(self.start, font_size=font_size,
                                        x=window.width//2, y=window.height*3//4,
@@ -131,17 +134,19 @@ class Timer(object):
         self.curtime = pyglet.text.Label(time.strftime('%X'), font_size=font_size//2,
                                        x=window.width//2, y=window.height//4,
                                        anchor_x='center', anchor_y='center')
-        self.bg_color = pyglet.text.Label("-", font_size=font_size*20,
+        self.bg_color = pyglet.text.Label("-", font_size=font_size*dash_size,
                                        x=window.width//2, y=window.height+500,
                                        anchor_x='center', anchor_y='center')
         self.reset()
 
     def reset(self):
+        global red
         self.time = COUNTDOWN * minute + 0.1
         self.running = start_running
         self.label.text = self.start
         self.label.color = colors['default_text']
         self.bg_color.color = colors['default_bg']
+        red = "   "
 
     def update(self, dt):
         self.curtime.text = time.strftime('%X')

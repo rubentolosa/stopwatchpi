@@ -17,5 +17,5 @@ if [ "$_IP" ]; then
   printf "My IP address is %s\n" "$_IP"
 fi
 
-/usr/bin/xinit /usr/local/stopwatchpi/chrono.sh $* -- :1
+/usr/bin/xinit /usr/local/bin/chrono.sh $* -- :1
 exit 0
